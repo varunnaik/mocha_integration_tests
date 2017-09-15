@@ -9,6 +9,10 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res) {
+  let matches = users.filter(u => u.id === req.body.id)
+  if (matches.length > 0) {
+    res.sendStatus(401);
+  }
   users.push(req.body);
   res.sendStatus(200);
 })
