@@ -9,12 +9,13 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res) {
-  let matches = users.filter(u => u.id === req.body.id)
-  if (matches.length > 0) {
+  if (!req.body.id || users.filter(u => u.id === req.body.id).length > 0) {
     res.sendStatus(401);
+  } else {
+    users.push(req.body);
+    res.sendStatus(200);
   }
-  users.push(req.body);
-  res.sendStatus(200);
+
 })
 
 router.delete('/:id', function(req,res) {
